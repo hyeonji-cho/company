@@ -8,17 +8,17 @@ import re
 import streamlit as st
 
 # 한글 폰트 설정
-# plt.rcParams['font.family'] = "AppleGothic"
+plt.rcParams['font.family'] = "AppleGothic"
 # Windows, 리눅스 사용자
-plt.rcParams['font.family'] = "NanumGothic"
+# plt.rcParams['font.family'] = "NanumGothic"
 plt.rcParams['axes.unicode_minus'] = False
 
 class PensionData():
     def __init__(self, filepath):
         self.df = pd.read_csv(os.path.join(filepath), encoding='cp949')
-        self.pattern1 = r'(\([^)]+\))'
-        self.pattern2 = r'(\[[^)]+\])'
-        self.pattern3 = r'[^A-Za-z0-9가-힣]'
+        self.pattern1 = '(\([^)]+\))'
+        self.pattern2 = '(\[[^)]+\])'
+        self.pattern3 = '[^A-Za-z0-9가-힣]'
         self.preprocess()
           
     def preprocess(self):
@@ -71,7 +71,7 @@ class PensionData():
     def get_data(self):
         return self.df
 
-@st.cache_data
+@st.cache
 def read_pensiondata():
     data = PensionData('https://www.dropbox.com/s/nxeo1tziv05ejz7/national-pension.csv?dl=1')
     return data
